@@ -152,10 +152,10 @@
   .att img { width: 100%; display: block; }
   .react { align-self: flex-start; margin: 4px 0 0 8px; font-size: .78rem; color: var(--ink-soft); }
 
-  .faq-outro { margin-top: 22px; color: var(--ink-soft); font-size: .95rem; }
+  .faq-outro { margin-top: 22px; color: var(--ink-soft); font-size: .95rem; text-align: center; }
 
   /* ---- FAQ ---- */
-  details { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 22px; margin-bottom: 12px; max-width: 780px; }
+  details { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 22px; margin: 0 auto 12px; max-width: 780px; text-align: left; }
   summary { font-weight: 700; cursor: pointer; color: var(--deep); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
   summary::-webkit-details-marker { display: none; }
   summary::after { content: "+"; font-size: 1.3rem; color: var(--fairway); transition: transform .2s ease; }
@@ -341,7 +341,7 @@
   </section>
 
   <section id="faq">
-    <div class="section-head reveal"><h2>Fair questions.</h2></div>
+    <div class="section-head center reveal"><h2>Fair questions.</h2></div>
     <details class="reveal"><summary>Are the answers official rulings?</summary><p>No — they're AI-generated with citations to the official Rules of Golf, and they're built to be right. For competition, always confirm with a rules official. RuleCaddie is not affiliated with the USGA or The R&A.</p></details>
     <details class="reveal"><summary>How accurate is it, really?</summary><p>Every answer is grounded in the current Rules of Golf and cites the specific rule number so you can verify it yourself. For the situations golfers actually hit — penalty areas, drops, unplayable lies, OB — it's reliable enough to settle the tee-box debate. For a competition ruling, a rules official is still the final word.</p></details>
     <details class="reveal"><summary>Does it work without cell service?</summary><p>Yes. The complete rule book works fully offline, and on newer iPhones with Apple Intelligence, basic questions are answered by on-device AI with zero signal — handy in the dead spots on the back nine.</p></details>
