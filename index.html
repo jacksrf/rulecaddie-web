@@ -41,14 +41,31 @@
   body {
     font-family: 'Public Sans', -apple-system, sans-serif;
     background-color: var(--cream); color: var(--ink); line-height: 1.6; overflow-x: hidden;
-    /* green-reading topographic contours behind the hero + faint grain */
-    background-image:
-      url("/img/greenread.svg"),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-    background-repeat: no-repeat, repeat;
-    background-position: center -30px, 0 0;
-    background-size: min(1600px, 132%) auto, 120px 120px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
   }
+
+  /* ---- Dark topographic hero panel ---- */
+  .hero-panel {
+    position: relative;
+    margin-top: 8px;
+    border-radius: 30px;
+    padding: 4px clamp(24px, 4vw, 56px) 8px;
+    background-color: var(--deep);
+    background-image: linear-gradient(160deg, rgba(12,44,27,.52), rgba(8,28,18,.80)), url("/img/topo.jpg");
+    background-size: cover; background-position: center;
+    box-shadow: 0 30px 70px rgba(8,28,18,.35);
+    overflow: hidden;
+  }
+  .hero-panel .eyebrow { color: var(--gold); }
+  .hero-panel .hero h1 { color: #F7F4EC; }
+  .hero-panel .hero h1 em { color: var(--gold); }
+  .hero-panel .hero p.lede { color: rgba(247,244,236,.88); }
+  .hero-panel .wl-note { color: var(--gold); }
+  .hero-panel .trust { color: rgba(247,244,236,.82); }
+  .hero-panel a { color: #F7F4EC; }
+  .hero-panel .waitlist button { background: var(--gold); color: var(--deep) !important; }
+  .hero-panel .waitlist input[type=email] { border-color: transparent; }
+  .hero-panel .phone { box-shadow: 0 34px 80px rgba(0,0,0,.45); }
   h1, h2, h3, .serif { font-family: 'Fraunces', Georgia, serif; }
   a { color: var(--fairway); }
   .wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
@@ -239,6 +256,7 @@
 </div>
 
 <div class="wrap hero-wrap">
+ <div class="hero-panel">
   <header class="hero">
     <div>
       <div class="eyebrow">Your pocket rules official</div>
@@ -262,6 +280,7 @@
       <img src="/img/chat.png" alt="RuleCaddie answering a plugged-ball question, citing Rule 16.3" width="312" height="676">
     </div>
   </header>
+ </div>
 </div>
 
 <div class="marquee" aria-hidden="true">
