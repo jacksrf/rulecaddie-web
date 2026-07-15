@@ -127,6 +127,30 @@
   .price li::before { content: "⛳"; font-size: .8rem; }
   .price.pro li::before { content: "✓"; font-weight: 900; color: var(--gold); }
   .trial { display: inline-block; background: var(--gold); color: var(--deep); font-weight: 800; font-size: .78rem; padding: 4px 12px; border-radius: 999px; margin-top: 10px; }
+  .price.pro { position: relative; transform: scale(1.035); }
+  .ribbon { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--deep); font-weight: 800; font-size: .72rem; letter-spacing: .04em; padding: 5px 16px; border-radius: 999px; white-space: nowrap; box-shadow: 0 6px 16px rgba(20,67,43,.25); }
+  .plan-cta { display: block; text-align: center; margin-top: 22px; padding: 13px; border-radius: 13px; font-weight: 800; text-decoration: none; font-size: .95rem; transition: transform .15s ease; }
+  .plan-cta:hover { transform: translateY(-1px); }
+  .price.free .plan-cta { background: var(--sage); color: var(--fairway); }
+  .price.pro .plan-cta { background: #fff; color: var(--fairway); }
+  .price .note { font-size: .78rem; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+  .price.pro .note { color: rgba(255,255,255,.7); }
+
+  /* ---- Settle: chat mockup ---- */
+  .chat { background: var(--card); border: 1px solid var(--border); border-radius: 26px; padding: 18px 16px 20px; box-shadow: var(--shadow); max-width: 400px; margin: 0 auto; }
+  .chat-head { text-align: center; font-size: .82rem; color: var(--deep); font-weight: 800; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  .chat-head small { display: block; font-weight: 500; font-size: .72rem; color: var(--ink-soft); margin-top: 2px; }
+  .row { display: flex; flex-direction: column; margin-bottom: 9px; }
+  .row.me { align-items: flex-end; }
+  .sender { font-size: .68rem; color: var(--ink-soft); margin: 0 0 3px 13px; font-weight: 600; }
+  .bubble { max-width: 82%; padding: 9px 14px; border-radius: 18px; font-size: .92rem; line-height: 1.4; }
+  .bubble.them { background: #E9E9EB; color: #111; border-bottom-left-radius: 5px; }
+  .bubble.me { background: var(--fairway); color: #fff; border-bottom-right-radius: 5px; }
+  .att { max-width: 78%; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 6px 18px rgba(33,37,33,.12); margin-top: 2px; }
+  .att img { width: 100%; display: block; }
+  .react { align-self: flex-start; margin: 4px 0 0 8px; font-size: .78rem; color: var(--ink-soft); }
+
+  .faq-outro { margin-top: 22px; color: var(--ink-soft); font-size: .95rem; }
 
   /* ---- FAQ ---- */
   details { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 22px; margin-bottom: 12px; max-width: 780px; }
@@ -158,6 +182,8 @@
     .phone { transform: rotate(0); margin-top: 12px; }
     .grid, .showcase, .steps { grid-template-columns: 1fr; }
     .bet, .price-grid { grid-template-columns: 1fr; }
+    .price.pro { transform: none; margin-top: 8px; }
+    .chat { margin-top: 8px; }
     .nav-links a:not(.btn) { display: none; }
   }
 </style>
@@ -257,20 +283,32 @@
     <div class="bet">
       <div class="reveal">
         <div class="eyebrow">Settle the bet</div>
-        <h2 style="font-size:clamp(1.9rem,4vw,2.5rem); color:var(--deep); margin:12px 0;">One tap ends the group-chat argument.</h2>
-        <p style="color:var(--ink-soft);">Every ruling turns into a share card — the question, the answer, and the rule number — ready for the foursome chat. Your buddy was wrong. Now there's a receipt.</p>
+        <h2 style="font-size:clamp(1.9rem,4vw,2.5rem); color:var(--deep); margin:12px 0;">Every rules argument<br>ends the same way now.</h2>
+        <p style="color:var(--ink-soft);">Tap share on any ruling and RuleCaddie drops a clean card — the question, the answer, the exact rule — right into the group chat. No more "my buddy says." Now there's a receipt.</p>
+        <p style="color:var(--ink-soft); margin-top:14px;">And the card is branded, so every argument you settle quietly recruits the next golfer in the thread.</p>
       </div>
-      <img class="reveal" src="/img/sharecard.png" alt="A shared RuleCaddie ruling card citing Rule 16.3">
+      <div class="chat reveal" role="img" aria-label="A group chat where RuleCaddie settles a rules argument">
+        <div class="chat-head">Saturday Foursome<small>4 people</small></div>
+        <div class="row them"><div class="sender">Mike</div><div class="bubble them">Ball's plugged in the fairway. Tough luck, play it as it lies 🤷</div></div>
+        <div class="row them"><div class="sender">Dave</div><div class="bubble them">Pretty sure you get a free drop actually</div></div>
+        <div class="row me"><div class="bubble me">Let me settle this 👇</div></div>
+        <div class="row me"><div class="att"><img src="/img/sharecard.png" alt="RuleCaddie ruling card: embedded ball gets free relief under Rule 16.3"></div></div>
+        <div class="row them"><div class="sender">Mike</div><div class="bubble them">...ok fine. Dave was right 😤</div></div>
+        <div class="react">Delivered · everyone asks what app that is</div>
+      </div>
     </div>
   </section>
 
   <section id="pricing">
-    <div class="section-head reveal"><h2>Free to settle arguments.<br>Pro to never lose one.</h2></div>
+    <div class="section-head center reveal">
+      <h2>Free to settle arguments.<br>Pro to never lose one.</h2>
+      <p>Start free, no account or card required. Upgrade whenever you want more.</p>
+    </div>
     <div class="price-grid">
-      <div class="price reveal">
+      <div class="price free reveal">
         <h3>Free</h3>
         <div class="amount">$0</div>
-        <div class="per">forever</div>
+        <div class="per">forever, no card required</div>
         <ul>
           <li>5 AI rulings every day</li>
           <li>Full rule book, works offline</li>
@@ -278,30 +316,38 @@
           <li>Round mode &amp; scorekeeping</li>
           <li>Share cards for the group chat</li>
         </ul>
+        <a class="plan-cta" href="https://apps.apple.com/app/rulecaddie">Download free</a>
       </div>
       <div class="price pro reveal">
+        <span class="ribbon">MOST POPULAR</span>
         <h3>Pro</h3>
         <div class="amount">$2.99<span style="font-size:1rem;">/mo</span></div>
-        <div class="per">or $19.99/year — two months free</div>
+        <div class="per">or $19.99/year &mdash; save 44%</div>
         <ul>
-          <li>Unlimited rulings</li>
+          <li>Everything in Free, plus:</li>
+          <li>Unlimited rulings — no daily cap</li>
           <li>Spoken answers, hands-free</li>
           <li>Drop-point visualizer on satellite maps</li>
           <li>Course memory: local rules &amp; scorecards</li>
           <li>Penalty analytics &amp; unlimited practice</li>
         </ul>
-        <span class="trial">1-WEEK FREE TRIAL</span>
+        <a class="plan-cta" href="https://apps.apple.com/app/rulecaddie">Start 1-week free trial</a>
+        <p class="note">Then $2.99/mo or $19.99/yr. Cancel anytime in Settings.</p>
       </div>
     </div>
   </section>
 
   <section id="faq">
     <div class="section-head reveal"><h2>Fair questions.</h2></div>
-    <details class="reveal"><summary>Are the answers official rulings?</summary><p>No — they're AI-generated with citations to the official Rules of Golf, and they're built to be right. For competition, confirm with a rules official. RuleCaddie is not affiliated with the USGA or The R&A.</p></details>
-    <details class="reveal"><summary>Does it work without cell service?</summary><p>The complete rule book summary works fully offline. On newer iPhones with Apple Intelligence, basic questions can even be answered by on-device AI with zero signal.</p></details>
-    <details class="reveal"><summary>Is there an Apple Watch app?</summary><p>Yes — ask from your wrist and the answer comes back through your phone. Your round also lives on the lock screen and in the Dynamic Island.</p></details>
-    <details class="reveal"><summary>How does the handicap stuff work?</summary><p>Enter your handicap index once. Photograph any course's scorecard and RuleCaddie reads the slope and rating, computes your course handicap with the official formula, and marks your stroke holes.</p></details>
-    <details class="reveal"><summary>How do I cancel?</summary><p>Subscriptions are handled entirely by Apple: Settings → your name → Subscriptions. Cancel anytime; Pro stays active until the period ends.</p></details>
+    <details class="reveal"><summary>Are the answers official rulings?</summary><p>No — they're AI-generated with citations to the official Rules of Golf, and they're built to be right. For competition, always confirm with a rules official. RuleCaddie is not affiliated with the USGA or The R&A.</p></details>
+    <details class="reveal"><summary>How accurate is it, really?</summary><p>Every answer is grounded in the current Rules of Golf and cites the specific rule number so you can verify it yourself. For the situations golfers actually hit — penalty areas, drops, unplayable lies, OB — it's reliable enough to settle the tee-box debate. For a competition ruling, a rules official is still the final word.</p></details>
+    <details class="reveal"><summary>Does it work without cell service?</summary><p>Yes. The complete rule book works fully offline, and on newer iPhones with Apple Intelligence, basic questions are answered by on-device AI with zero signal — handy in the dead spots on the back nine.</p></details>
+    <details class="reveal"><summary>Do I need to pay to try it?</summary><p>No. The free tier gives you 5 AI rulings a day plus the full rule book, quiz, and round mode — no account or card required. Pro adds unlimited rulings and more, with a 1-week free trial.</p></details>
+    <details class="reveal"><summary>Is there an Apple Watch app?</summary><p>Yes — ask from your wrist and the answer comes back through your phone. Your round also lives on the lock screen and in the Dynamic Island, so it follows you the whole 18.</p></details>
+    <details class="reveal"><summary>How does the handicap and scoring work?</summary><p>Enter your handicap index once. Photograph any course's scorecard and RuleCaddie reads the slope and rating, computes your course handicap with the official formula, and marks your stroke holes. Then keep score with one tap per hole.</p></details>
+    <details class="reveal"><summary>What data do you collect?</summary><p>The minimum needed to answer your questions and sync your account. No selling data, no ads, no third-party trackers. You can delete your account and all data anytime from within the app. See our <a href="/privacy">privacy policy</a>.</p></details>
+    <details class="reveal"><summary>How do I cancel?</summary><p>Subscriptions are handled entirely by Apple: Settings → your name → Subscriptions. Cancel anytime; Pro stays active until the end of the period.</p></details>
+    <p class="faq-outro reveal">Still curious? Email <a href="mailto:trey@fathomdev.io">trey@fathomdev.io</a> — a real person replies.</p>
   </section>
 
   <section>
