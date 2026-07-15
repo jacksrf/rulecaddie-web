@@ -72,7 +72,9 @@
   .trust span { display: inline-flex; align-items: center; gap: 6px; }
 
   /* ---- Waitlist ---- */
-  .wl-note { margin-top: 24px; font-size: .85rem; color: var(--sand-text); font-weight: 800; letter-spacing: .01em; }
+  .wl-note { margin-top: 24px; font-size: .85rem; color: var(--sand-text); font-weight: 800; letter-spacing: .01em; scroll-margin-top: 96px; }
+  #waitlist { scroll-margin-top: 96px; }
+  .waitlist.flash input[type=email] { border-color: var(--fairway); box-shadow: 0 0 0 4px var(--sage); }
   .waitlist { display: flex; gap: 10px; margin-top: 12px; max-width: 460px; flex-wrap: wrap; position: relative; }
   .waitlist input[type=email] { flex: 1; min-width: 210px; padding: 13px 18px; border-radius: 999px; border: 1px solid var(--border); background: var(--card); font: inherit; font-size: .98rem; color: var(--ink); }
   .waitlist input[type=email]:focus { outline: none; border-color: var(--fairway); box-shadow: 0 0 0 3px var(--sage); }
@@ -224,7 +226,7 @@
         <a href="#features">Features</a>
         <a href="#pricing">Pricing</a>
         <a href="/support">Support</a>
-        <a class="btn" href="#waitlist">Join waitlist</a>
+        <a class="btn" href="#waitlist" onclick="return focusWaitlist()">Join waitlist</a>
       </div>
     </nav>
   </div>
@@ -337,7 +339,7 @@
           <li>Round mode &amp; scorekeeping</li>
           <li>Share cards for the group chat</li>
         </ul>
-        <a class="plan-cta" href="#waitlist">Join the waitlist</a>
+        <a class="plan-cta" href="#waitlist" onclick="return focusWaitlist()">Join the waitlist</a>
       </div>
       <div class="price pro reveal">
         <span class="ribbon">MOST POPULAR</span>
@@ -352,7 +354,7 @@
           <li>Course memory: local rules &amp; scorecards</li>
           <li>Penalty analytics &amp; unlimited practice</li>
         </ul>
-        <a class="plan-cta" href="#waitlist">Join the waitlist</a>
+        <a class="plan-cta" href="#waitlist" onclick="return focusWaitlist()">Join the waitlist</a>
         <p class="note">Then $2.99/mo or $19.99/yr. Cancel anytime in Settings.</p>
       </div>
     </div>
@@ -426,6 +428,20 @@
       else { msg.textContent = 'Hmm, that didn’t go through. Try again?'; msg.className = 'wl-msg err'; }
     } catch (_) { msg.textContent = 'Network hiccup — try again?'; msg.className = 'wl-msg err'; }
     btn.disabled = false; btn.textContent = label;
+    return false;
+  }
+
+  function focusWaitlist() {
+    const form = document.querySelector('.waitlist');
+    const input = form && form.querySelector('input[type=email]');
+    if (form) form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (input) {
+      setTimeout(() => {
+        input.focus({ preventScroll: true });
+        form.classList.add('flash');
+        setTimeout(() => form.classList.remove('flash'), 1200);
+      }, 450);
+    }
     return false;
   }
 
