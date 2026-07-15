@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RuleCaddie — Golf rules, answered on the course</title>
+<meta name="description" content="Your pocket rules official. Ask any Rules of Golf question by voice and get the ruling with the exact rule number — plus drop maps, course memory, scorekeeping, and an Apple Watch app.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<meta name="theme-color" content="#1C5E3C">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rulecaddie.vercel.app/">
+<meta property="og:title" content="RuleCaddie — Golf rules, answered on the course">
+<meta property="og:description" content="Ask out loud. Get the ruling with the exact rule number. Settle the bet.">
+<meta property="og:image" content="https://rulecaddie.vercel.app/img/chat.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "RuleCaddie",
+  "operatingSystem": "iOS",
+  "applicationCategory": "SportsApplication",
+  "description": "AI rules official for golf. Ask any Rules of Golf question by voice and get the ruling with the exact rule number.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<style>
+  :root {
+    --cream: #F7F4EC; --card: #FFFFFF; --border: #E7E3D8;
+    --fairway: #1C5E3C; --deep: #14432B; --sage: #E4EFE4;
+    --sand: #EFE7D6; --sand-text: #8C7A45; --gold: #C9A84C;
+    --ink: #212521; --ink-soft: #6A716A;
+    --shadow: 0 20px 50px rgba(20,67,43,.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Public Sans', -apple-system, sans-serif;
+    background: var(--cream); color: var(--ink); line-height: 1.6; overflow-x: hidden;
+    /* faint grain for depth */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  }
+  h1, h2, h3, .serif { font-family: 'Fraunces', Georgia, serif; }
+  a { color: var(--fairway); }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .eyebrow { letter-spacing: .14em; font-weight: 700; font-size: .78rem; color: var(--sand-text); text-transform: uppercase; }
+
+  /* ---- Nav (sticky, blurs on scroll) ---- */
+  .navbar { position: sticky; top: 0; z-index: 50; transition: background .3s ease, box-shadow .3s ease, border-color .3s ease; border-bottom: 1px solid transparent; }
+  .navbar.scrolled { background: rgba(247,244,236,.82); backdrop-filter: blur(12px); border-bottom-color: var(--border); }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+  .logo b { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 900; }
+  .nav-links { display: flex; gap: 26px; align-items: center; }
+  .nav-links a { text-decoration: none; font-weight: 600; font-size: .92rem; color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--fairway); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--fairway); color: #fff !important; padding: 11px 22px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: .95rem; transition: transform .15s ease, box-shadow .15s ease; }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(20,67,43,.28); }
+  .btn.ghost { background: var(--sage); color: var(--fairway) !important; }
+
+  /* ---- Hero ---- */
+  header.hero { display: grid; grid-template-columns: 1.08fr .92fr; gap: 48px; align-items: center; padding: 60px 0 44px; }
+  .hero h1 { font-size: clamp(2.7rem, 6vw, 4.4rem); font-weight: 900; line-height: 1.04; margin: 14px 0 18px; color: var(--deep); letter-spacing: -.01em; }
+  .hero h1 em { font-style: italic; color: var(--fairway); }
+  .hero p.lede { font-size: 1.16rem; color: var(--ink-soft); max-width: 34rem; }
+  .hero-ctas { margin-top: 28px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .trust { margin-top: 20px; display: flex; gap: 18px; flex-wrap: wrap; font-size: .82rem; color: var(--ink-soft); }
+  .trust span { display: inline-flex; align-items: center; gap: 6px; }
+  .phone { justify-self: center; width: min(312px, 78vw); border-radius: 44px; padding: 12px; background: var(--deep); box-shadow: 0 34px 80px rgba(20,67,43,.32); transform: rotate(2.5deg); transition: transform .45s ease; }
+  .phone:hover { transform: rotate(0) scale(1.02); }
+  .phone img { width: 100%; border-radius: 34px; display: block; }
+  .flag-svg { width: 44px; height: 44px; }
+  .flag-svg .pennant { transform-origin: 50% 24%; animation: wave 3.2s ease-in-out infinite; }
+  @keyframes wave { 0%,100% { transform: rotate(0);} 50% { transform: rotate(-7deg);} }
+
+  /* ---- Marquee ---- */
+  .marquee { overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 12px 0; background: var(--card); white-space: nowrap; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .marquee-track { display: inline-block; animation: scroll 42s linear infinite; }
+  .marquee span { display: inline-block; margin: 0 14px; padding: 5px 16px; border-radius: 999px; background: var(--sage); color: var(--fairway); font-weight: 700; font-size: .85rem; }
+  @keyframes scroll { from { transform: translateX(0);} to { transform: translateX(-50%);} }
+  @media (prefers-reduced-motion: reduce) { .marquee-track, .flag-svg .pennant { animation: none; } }
+
+  section { padding: 76px 0; }
+  .section-head { max-width: 640px; margin-bottom: 44px; }
+  .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+  .section-head h2 { font-size: clamp(1.9rem, 4vw, 2.7rem); font-weight: 900; color: var(--deep); line-height: 1.12; letter-spacing: -.01em; }
+  .section-head p { color: var(--ink-soft); margin-top: 10px; font-size: 1.05rem; }
+
+  /* ---- How it works ---- */
+  .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .step { position: relative; padding: 28px 24px; }
+  .step .num { font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.4rem; color: var(--sand); line-height: 1; }
+  .step h3 { color: var(--deep); font-size: 1.2rem; margin: 6px 0 6px; }
+  .step p { color: var(--ink-soft); font-size: .95rem; }
+
+  /* ---- Features ---- */
+  .grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 24px; transition: transform .2s ease, box-shadow .2s ease; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(33,37,33,.08); }
+  .card .icon { width: 44px; height: 44px; border-radius: 999px; background: var(--sage); display: grid; place-items: center; font-size: 1.2rem; margin-bottom: 14px; }
+  .card h3 { font-size: 1.15rem; margin-bottom: 6px; color: var(--deep); }
+  .card p { font-size: .93rem; color: var(--ink-soft); }
+
+  /* ---- Showcase ---- */
+  .showcase { display: grid; grid-template-columns: repeat(3,1fr); gap: 26px; align-items: start; }
+  .shot { border-radius: 30px; border: 1px solid var(--border); overflow: hidden; background: var(--deep); padding: 8px; box-shadow: var(--shadow); }
+  .shot img { width: 100%; border-radius: 24px; display: block; }
+  .shot figcaption { text-align: center; padding: 12px 6px 6px; color: #fff; font-size: .85rem; font-weight: 600; }
+
+  /* ---- Settle ---- */
+  .bet { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .bet img { width: 100%; border-radius: 18px; border: 1px solid var(--border); box-shadow: var(--shadow); }
+
+  /* ---- Pricing ---- */
+  .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; max-width: 800px; }
+  .price { background: var(--card); border: 1px solid var(--border); border-radius: 22px; padding: 30px; }
+  .price.pro { background: linear-gradient(150deg, var(--fairway), var(--deep)); color: #fff; border: none; box-shadow: var(--shadow); }
+  .price h3 { font-size: 1.4rem; }
+  .price .amount { font-family: 'Fraunces', serif; font-size: 2.4rem; font-weight: 900; margin: 8px 0 2px; }
+  .price .per { font-size: .85rem; opacity: .75; }
+  .price ul { list-style: none; margin: 18px 0 6px; }
+  .price li { padding: 7px 0; font-size: .95rem; display: flex; gap: 10px; align-items: baseline; }
+  .price li::before { content: "⛳"; font-size: .8rem; }
+  .price.pro li::before { content: "✓"; font-weight: 900; color: var(--gold); }
+  .trial { display: inline-block; background: var(--gold); color: var(--deep); font-weight: 800; font-size: .78rem; padding: 4px 12px; border-radius: 999px; margin-top: 10px; }
+
+  /* ---- FAQ ---- */
+  details { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 22px; margin-bottom: 12px; max-width: 780px; }
+  summary { font-weight: 700; cursor: pointer; color: var(--deep); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-size: 1.3rem; color: var(--fairway); transition: transform .2s ease; }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { margin-top: 10px; color: var(--ink-soft); font-size: .95rem; }
+
+  /* ---- Closing CTA ---- */
+  .cta-band { background: linear-gradient(150deg, var(--fairway), var(--deep)); border-radius: 28px; padding: 56px 40px; text-align: center; color: #fff; box-shadow: var(--shadow); }
+  .cta-band h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 900; }
+  .cta-band p { opacity: .85; margin: 12px auto 26px; max-width: 32rem; }
+  .cta-band .btn { background: #fff; color: var(--fairway) !important; }
+
+  /* ---- Footer ---- */
+  footer { border-top: 1px solid var(--border); padding: 44px 0 60px; margin-top: 60px; color: var(--ink-soft); font-size: .88rem; }
+  .foot-grid { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  footer a { color: var(--ink-soft); text-decoration: none; margin-right: 18px; }
+  footer a:hover { color: var(--fairway); }
+  .disclaimer { max-width: 660px; margin-top: 14px; font-size: .8rem; }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (max-width: 880px) {
+    header.hero { grid-template-columns: 1fr; text-align: center; padding-top: 32px; }
+    .hero p.lede { margin: 0 auto; } .hero-ctas, .trust { justify-content: center; }
+    .phone { transform: rotate(0); margin-top: 12px; }
+    .grid, .showcase, .steps { grid-template-columns: 1fr; }
+    .bet, .price-grid { grid-template-columns: 1fr; }
+    .nav-links a:not(.btn) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="navbar" id="navbar">
+  <div class="wrap">
+    <nav>
+      <a class="logo" href="/">
+        <svg class="flag-svg" viewBox="0 0 100 100" aria-hidden="true">
+          <line x1="50" y1="10" x2="50" y2="54" stroke="#1C5E3C" stroke-width="5" stroke-linecap="round"/>
+          <path class="pennant" d="M53 12 L82 21 L53 30 Z" fill="#C9A84C"/>
+          <path d="M50 58 Q28 47 8 55 L8 78 Q28 71 50 82 Z" fill="#1C5E3C"/>
+          <path d="M50 58 Q72 47 92 55 L92 78 Q72 71 50 82 Z" fill="#2E7D4F"/>
+        </svg>
+        <b>RuleCaddie</b>
+      </a>
+      <div class="nav-links">
+        <a href="#how">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="/support">Support</a>
+        <a class="btn" href="https://apps.apple.com/app/rulecaddie">Get the app</a>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <div class="eyebrow">Your pocket rules official</div>
+      <h1>Golf rules, <em>answered</em> before the argument starts.</h1>
+      <p class="lede">Ask out loud — "my ball's in the water, red stakes, what are my options?" — and get the ruling with the exact USGA/R&A rule number. On your phone, your lock screen, and your wrist.</p>
+      <div class="hero-ctas">
+        <a class="btn" href="https://apps.apple.com/app/rulecaddie">Download on the App&nbsp;Store</a>
+        <a class="btn ghost" href="#how">See how it works</a>
+      </div>
+      <div class="trust">
+        <span>⛳ Free to start</span>
+        <span>📖 Full rule book offline</span>
+        <span>⌚ iPhone &amp; Apple Watch</span>
+      </div>
+    </div>
+    <div class="phone reveal">
+      <img src="/img/chat.png" alt="RuleCaddie answering a plugged-ball question, citing Rule 16.3" width="312" height="676">
+    </div>
+  </header>
+</div>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Rule 17.1d — penalty area relief</span><span>Rule 16.3 — embedded ball</span><span>Rule 18.2 — stroke and distance</span><span>Rule 13.1d — ball moved on green</span><span>Rule 19.3 — unplayable in bunker</span><span>Rule 14.3 — knee-height drop</span><span>Rule 6.4b — ready golf</span><span>Rule 4.1b — 14 clubs</span>
+    <span>Rule 17.1d — penalty area relief</span><span>Rule 16.3 — embedded ball</span><span>Rule 18.2 — stroke and distance</span><span>Rule 13.1d — ball moved on green</span><span>Rule 19.3 — unplayable in bunker</span><span>Rule 14.3 — knee-height drop</span><span>Rule 6.4b — ready golf</span><span>Rule 4.1b — 14 clubs</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <section id="how">
+    <div class="section-head center reveal">
+      <h2>Three taps from confusion to certainty.</h2>
+      <p>No thumbing through a rule book on the tee box while your group waits.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="num">01</div><h3>Ask</h3><p>Tap the mic and describe your lie in plain English. Gloves on, phone barely out of the bag.</p></div>
+      <div class="step reveal"><div class="num">02</div><h3>Get the ruling</h3><p>The answer streams back in seconds — your options, any penalty strokes, and the exact rule number.</p></div>
+      <div class="step reveal"><div class="num">03</div><h3>Settle it</h3><p>One tap turns the ruling into a share card for the group chat. The argument is over.</p></div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="section-head reveal">
+      <h2>A rules official who walks every round with you.</h2>
+      <p>Built on the official Rules of Golf, answered by AI, cited by rule number — with a full offline rule book for when the signal dies on the back nine.</p>
+    </div>
+    <div class="grid">
+      <div class="card reveal"><div class="icon">🎙️</div><h3>Ask with your voice</h3><p>Describe the situation out loud. Answers stream back in seconds and can be read aloud while you walk to your ball.</p></div>
+      <div class="card reveal"><div class="icon">📍</div><h3>See your drop</h3><p>The Drop Helper draws your actual relief area on a satellite map — two club-lengths, back-on-the-line, exactly where you can drop.</p></div>
+      <div class="card reveal"><div class="icon">📸</div><h3>Your caddie knows your course</h3><p>Photograph the local rules board and scorecard once. Every future answer accounts for your club's local rules — automatically.</p></div>
+      <div class="card reveal"><div class="icon">⛳</div><h3>Round mode &amp; scoring</h3><p>One-tap scores, penalties logged with the rule cited, stroke holes marked from your handicap, and a recap when you're done.</p></div>
+      <div class="card reveal"><div class="icon">🤝</div><h3>Match play, handled</h3><p>Enter your opponent's handicap and every hole shows who gives strokes where — with live match status on your lock screen.</p></div>
+      <div class="card reveal"><div class="icon">🔥</div><h3>Become the rules person</h3><p>A daily 3-question quiz with streaks, visual scenario drills, and study tracks that make you the authority in your foursome.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head reveal"><h2>On the course, it looks like this.</h2></div>
+    <div class="showcase">
+      <figure class="shot reveal"><img src="/img/home.png" alt="RuleCaddie home screen with a round in progress"><figcaption>Everything one tap away</figcaption></figure>
+      <figure class="shot reveal"><img src="/img/round.png" alt="Round mode showing stroke holes and match tools"><figcaption>Round mode with stroke holes</figcaption></figure>
+      <figure class="shot reveal"><img src="/img/relief.png" alt="Drop helper drawing a relief area on a satellite map"><figcaption>Your relief area, drawn</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="bet">
+      <div class="reveal">
+        <div class="eyebrow">Settle the bet</div>
+        <h2 style="font-size:clamp(1.9rem,4vw,2.5rem); color:var(--deep); margin:12px 0;">One tap ends the group-chat argument.</h2>
+        <p style="color:var(--ink-soft);">Every ruling turns into a share card — the question, the answer, and the rule number — ready for the foursome chat. Your buddy was wrong. Now there's a receipt.</p>
+      </div>
+      <img class="reveal" src="/img/sharecard.png" alt="A shared RuleCaddie ruling card citing Rule 16.3">
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="section-head reveal"><h2>Free to settle arguments.<br>Pro to never lose one.</h2></div>
+    <div class="price-grid">
+      <div class="price reveal">
+        <h3>Free</h3>
+        <div class="amount">$0</div>
+        <div class="per">forever</div>
+        <ul>
+          <li>5 AI rulings every day</li>
+          <li>Full rule book, works offline</li>
+          <li>Daily quiz, streaks &amp; scenarios</li>
+          <li>Round mode &amp; scorekeeping</li>
+          <li>Share cards for the group chat</li>
+        </ul>
+      </div>
+      <div class="price pro reveal">
+        <h3>Pro</h3>
+        <div class="amount">$2.99<span style="font-size:1rem;">/mo</span></div>
+        <div class="per">or $19.99/year — two months free</div>
+        <ul>
+          <li>Unlimited rulings</li>
+          <li>Spoken answers, hands-free</li>
+          <li>Drop-point visualizer on satellite maps</li>
+          <li>Course memory: local rules &amp; scorecards</li>
+          <li>Penalty analytics &amp; unlimited practice</li>
+        </ul>
+        <span class="trial">1-WEEK FREE TRIAL</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="section-head reveal"><h2>Fair questions.</h2></div>
+    <details class="reveal"><summary>Are the answers official rulings?</summary><p>No — they're AI-generated with citations to the official Rules of Golf, and they're built to be right. For competition, confirm with a rules official. RuleCaddie is not affiliated with the USGA or The R&A.</p></details>
+    <details class="reveal"><summary>Does it work without cell service?</summary><p>The complete rule book summary works fully offline. On newer iPhones with Apple Intelligence, basic questions can even be answered by on-device AI with zero signal.</p></details>
+    <details class="reveal"><summary>Is there an Apple Watch app?</summary><p>Yes — ask from your wrist and the answer comes back through your phone. Your round also lives on the lock screen and in the Dynamic Island.</p></details>
+    <details class="reveal"><summary>How does the handicap stuff work?</summary><p>Enter your handicap index once. Photograph any course's scorecard and RuleCaddie reads the slope and rating, computes your course handicap with the official formula, and marks your stroke holes.</p></details>
+    <details class="reveal"><summary>How do I cancel?</summary><p>Subscriptions are handled entirely by Apple: Settings → your name → Subscriptions. Cancel anytime; Pro stays active until the period ends.</p></details>
+  </section>
+
+  <section>
+    <div class="cta-band reveal">
+      <h2>Never lose a rules argument again.</h2>
+      <p>Download RuleCaddie and walk onto the first tee knowing you've got a rules official in your pocket.</p>
+      <a class="btn" href="https://apps.apple.com/app/rulecaddie">Download on the App&nbsp;Store</a>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <b style="font-family:'Fraunces',serif; color:var(--deep);">RuleCaddie</b><br>
+        Golf rules, answered on the course.
+      </div>
+      <div>
+        <a href="/support">Support</a>
+        <a href="/privacy">Privacy</a>
+        <a href="mailto:trey@fathomdev.io">Contact</a>
+      </div>
+    </div>
+    <p class="disclaimer">RuleCaddie is not affiliated with, or endorsed by, the USGA or The R&A. Answers are AI-generated with rule citations and are not official rulings. © 2026 Fathom Dev.</p>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('navbar');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  const io = new IntersectionObserver(
+    es => es.forEach(e => e.isIntersecting && e.target.classList.add('in')),
+    { threshold: 0.12 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

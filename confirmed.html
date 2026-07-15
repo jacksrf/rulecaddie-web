@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RuleCaddie — Email Confirmed</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#1C5E3C">
+<style>
+  :root { color-scheme: light dark; --cream:#F7F4EC; --deep:#14432B; --fairway:#1C5E3C; --ink:#212521; --ink-soft:#6A716A; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body { font-family:'Public Sans',-apple-system,Georgia,serif; background:var(--cream); color:var(--ink); line-height:1.65; min-height:100vh; display:grid; place-items:center; text-align:center; padding:24px; }
+  .card { max-width:440px; }
+  .mark { width:76px; height:76px; margin:0 auto 8px; }
+  .check { color:var(--fairway); font-size:2.2rem; margin:6px 0; }
+  h1 { font-family:'Fraunces',Georgia,serif; color:var(--deep); font-size:1.7rem; }
+  p { color:var(--ink-soft); margin-top:.6em; }
+  a.button { display:inline-block; margin-top:20px; padding:13px 30px; background:var(--fairway); color:#fff; text-decoration:none; border-radius:14px; font-weight:700; }
+  .small { font-size:.85rem; margin-top:26px; }
+  @media (prefers-color-scheme: dark){ body{background:#171a17;color:#e8e6df;} h1{color:#9dbf9e;} }
+</style>
+</head>
+<body>
+<div class="card">
+  <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="22" fill="#1C5E3C"/><line x1="50" y1="24" x2="50" y2="58" stroke="#F7F4EC" stroke-width="5" stroke-linecap="round"/><path d="M53 26 L74 33 L53 40 Z" fill="#C9A84C"/><path d="M50 60 Q34 51 20 57 L20 74 Q34 68 50 78 Z" fill="#F7F4EC"/><path d="M50 60 Q66 51 80 57 L80 74 Q66 68 50 78 Z" fill="#E7E3D8"/></svg>
+  <div class="check">✓</div>
+  <h1>Email confirmed</h1>
+  <p>Your RuleCaddie account is ready. Open the app on your iPhone and sign in with your email and password.</p>
+  <a class="button" href="rulecaddie://ask">Open RuleCaddie</a>
+  <p class="small">Button not working? Just open the RuleCaddie app from your home screen.</p>
+</div>
+</body>
+</html>
