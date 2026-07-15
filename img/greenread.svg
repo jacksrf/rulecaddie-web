@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="820" viewBox="0 0 1440 820">
+  <!-- green-reading topographic contours: a high point upper-right, a ridge lower-left -->
+  <g fill="none" stroke="#1C5E3C" stroke-width="2">
+    <!-- upper-right peak -->
+    <ellipse cx="1170" cy="230" rx="70"  ry="54"  stroke-opacity="0.10"/>
+    <ellipse cx="1162" cy="226" rx="128" ry="100" transform="rotate(-7 1162 226)" stroke-opacity="0.09"/>
+    <ellipse cx="1152" cy="222" rx="192" ry="152" transform="rotate(-11 1152 222)" stroke-opacity="0.08"/>
+    <ellipse cx="1140" cy="220" rx="262" ry="208" transform="rotate(-13 1140 220)" stroke-opacity="0.07"/>
+    <ellipse cx="1126" cy="218" rx="338" ry="270" transform="rotate(-15 1126 218)" stroke-opacity="0.06"/>
+    <ellipse cx="1110" cy="216" rx="420" ry="336" transform="rotate(-16 1110 216)" stroke-opacity="0.05"/>
+    <ellipse cx="1094" cy="214" rx="510" ry="408" transform="rotate(-17 1094 214)" stroke-opacity="0.045"/>
+    <ellipse cx="1076" cy="212" rx="606" ry="484" transform="rotate(-18 1076 212)" stroke-opacity="0.04"/>
+    <!-- lower-left ridge -->
+    <ellipse cx="230" cy="660" rx="60"  ry="46"  stroke-opacity="0.08"/>
+    <ellipse cx="238" cy="666" rx="118" ry="92"  transform="rotate(10 238 666)" stroke-opacity="0.07"/>
+    <ellipse cx="248" cy="672" rx="182" ry="146" transform="rotate(14 248 672)" stroke-opacity="0.06"/>
+    <ellipse cx="260" cy="678" rx="252" ry="204" transform="rotate(16 260 678)" stroke-opacity="0.05"/>
+    <ellipse cx="274" cy="684" rx="328" ry="266" transform="rotate(17 274 684)" stroke-opacity="0.04"/>
+  </g>
+  <!-- a couple warm gold contours for the heatmap hint -->
+  <g fill="none" stroke="#C9A84C" stroke-width="2">
+    <ellipse cx="1158" cy="224" rx="158" ry="124" transform="rotate(-9 1158 224)" stroke-opacity="0.10"/>
+    <ellipse cx="242" cy="668" rx="148" ry="118" transform="rotate(12 242 668)" stroke-opacity="0.08"/>
+  </g>
+</svg>
