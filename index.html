@@ -408,7 +408,14 @@
   // Waitlist — posts to Supabase (public anon key, insert-only by policy)
   const SUPA = 'https://qrzpbphfhcektgvmboqz.supabase.co';
   const ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFyenBicGhmaGNla3Rndm1ib3F6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3MjA4MzIsImV4cCI6MjA5OTI5NjgzMn0.TzxZIFc0u0wmtv6EHUVcAsBtt8eUMy4mhhhaMJ5wWn0';
-  async function submitWaitlist(e, source) {
+  // Capture UTM tags so ad-driven signups are attributable in the waitlist
+  const _utm = (() => {
+    const p = new URLSearchParams(location.search);
+    const s = p.get('utm_source');
+    if (!s) return '';
+    return [s, p.get('utm_campaign'), p.get('utm_content')].filter(Boolean).join('/');
+  })();
+  async function submitWaitlist(e, position) {
     e.preventDefault();
     const form = e.target;
     const msg = form.querySelector('.wl-msg');
@@ -417,6 +424,7 @@
     const btn = form.querySelector('button');
     const label = btn.textContent;
     btn.disabled = true; btn.textContent = 'Joining…';
+    const source = _utm ? _utm + ' (' + position + ')' : position;
     try {
       const res = await fetch(SUPA + '/rest/v1/waitlist', {
         method: 'POST',
