@@ -112,11 +112,13 @@
   .shot figcaption { text-align: center; padding: 12px 6px 6px; color: #fff; font-size: .85rem; font-weight: 600; }
 
   /* ---- Settle ---- */
-  .bet { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .bet { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .bet-text { position: sticky; top: 96px; }
+  .settle { padding-top: 48px; padding-bottom: 48px; }
   .bet img { width: 100%; border-radius: 18px; border: 1px solid var(--border); box-shadow: var(--shadow); }
 
   /* ---- Pricing ---- */
-  .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; max-width: 800px; }
+  .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; max-width: 780px; margin: 0 auto; }
   .price { background: var(--card); border: 1px solid var(--border); border-radius: 22px; padding: 30px; }
   .price.pro { background: linear-gradient(150deg, var(--fairway), var(--deep)); color: #fff; border: none; box-shadow: var(--shadow); }
   .price h3 { font-size: 1.4rem; }
@@ -183,6 +185,7 @@
     .grid, .showcase, .steps { grid-template-columns: 1fr; }
     .bet, .price-grid { grid-template-columns: 1fr; }
     .price.pro { transform: none; margin-top: 8px; }
+    .bet-text { position: static; }
     .chat { margin-top: 8px; }
     .nav-links a:not(.btn) { display: none; }
   }
@@ -279,9 +282,9 @@
     </div>
   </section>
 
-  <section>
+  <section class="settle">
     <div class="bet">
-      <div class="reveal">
+      <div class="bet-text reveal">
         <div class="eyebrow">Settle the bet</div>
         <h2 style="font-size:clamp(1.9rem,4vw,2.5rem); color:var(--deep); margin:12px 0;">Every rules argument<br>ends the same way now.</h2>
         <p style="color:var(--ink-soft);">Tap share on any ruling and RuleCaddie drops a clean card — the question, the answer, the exact rule — right into the group chat. No more "my buddy says." Now there's a receipt.</p>
